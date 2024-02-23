@@ -59,6 +59,10 @@ const recipeSchema = new Schema({
     reviews:[{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Review'
+    }],
+    likes:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }]
 },{timestamps:true})
 

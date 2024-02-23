@@ -28,4 +28,30 @@ const postReview = async (req, res) => {
     }
 }
 
-export { postReview, getAllReviews }
+const likeRecipe = async (req, res) => {
+    const { id } = req.params;
+    const userId = req.user._id;
+
+    try {
+        const recipe = await Recipe.findById(id)
+
+        if (!recipe) {
+            return res.json({ error: 'Recipe not found' })
+        }
+        const likeExists = recipe.likes.includes(userId)
+
+        if (likeExists) {
+            recipe.likes = recipe.likes.filter(like => like.toString() !== userId.toString())
+        } else {
+            recipe.likes.push(userId)
+        }
+
+        const updatedRecipe = await recipe.save()
+        res.json(updatedRecipe)
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Internal server error' })
+    }
+};
+
+
+export { postReview, getAllReviews,likeRecipe }
