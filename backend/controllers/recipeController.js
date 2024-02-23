@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 const getAllRecipes = async(req, res) => {
     try{
-        const recipe = await Recipe.find(req.query).sort({createdAt:-1})
+        const recipe = await Recipe.find(req.query).sort({createdAt:-1}).populate('reviews')
         res.status(200).json(recipe)
     }
     catch(error){

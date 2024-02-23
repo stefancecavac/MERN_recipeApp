@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
         if(!compare){
           return  res.status(400).json({error: 'incorrect Password'})
         }
-            const token = jwt.sign({id: user.id}, process.env.SECRET, {expiresIn:'3h'})
+            const token = jwt.sign({_id: user.id}, process.env.SECRET, {expiresIn:'3h'})
             res.cookie('token', token ,{httpOnly:true})
             res.status(201).json(user)
         }

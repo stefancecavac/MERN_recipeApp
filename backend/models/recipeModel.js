@@ -55,7 +55,11 @@ const recipeSchema = new Schema({
     calories:{
         type:Number,
         required:true
-    }
+    },
+    reviews:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+    }]
 },{timestamps:true})
 
 export default mongoose.model('Recipe', recipeSchema)
