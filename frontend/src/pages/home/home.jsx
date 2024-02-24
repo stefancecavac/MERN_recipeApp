@@ -3,17 +3,19 @@ import FilterCard from "../../components/filters/filterCard"
 import RecipeCard from "../../components/recipes/recipeCard"
 import { UseRecipeContext } from "../../hooks/useRecipeHook"
 import { useEffect } from "react"
+import { UseUserContext } from "../../hooks/useUserHook"
 
 
 const Home = () => {
     const { recipes, dispatch } = UseRecipeContext()
+    const { user} = UseUserContext()
 
     useEffect(() => {
-
-
         const getRecipes = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/api/recipes`)
+                const response = await fetch(`http://localhost:4000/api/recipes`,{
+                   
+                })
                 const json = await response.json()
 
                 if (response.ok) {
@@ -26,7 +28,7 @@ const Home = () => {
 
         }
         getRecipes()
-    }, [dispatch])
+    }, [dispatch ,user])
 
 
     return (

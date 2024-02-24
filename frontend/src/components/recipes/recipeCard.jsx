@@ -9,8 +9,8 @@ const RecipeCard = ({ recipe }) => {
             <div className="bg-red-600 p-1 rounded-xl text-white flex m-2 justify-between absolute bottom-0">
                 <p className=" font-bold text-lg  ">{recipe.title}</p>
             </div>
-            <small className="text-white  bg-red-600 rounded-full p-1 absolute top-0 m-2">{recipe.cookTime} mins
-            </small>
+            <small className="text-white  bg-red-600 rounded-full p-1 absolute top-0 m-2">{recipe.cookTime} mins  </small>
+            <small className="text-red-600  bg-white rounded-full p-1 absolute top-0 right-0 m-2">{recipe.likes.length} Likes</small>
            
 
         </div>

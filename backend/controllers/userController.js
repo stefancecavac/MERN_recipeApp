@@ -28,7 +28,7 @@ const registerUser = async (req, res) => {
             const hash = await bcrypt.hash(password, salt)
             const user = await User.create({email , userName , password:hash})
             const token = jwt.sign({id: user.id}, process.env.SECRET, {expiresIn:'3h'})
-            res.cookie('token', token)
+            res.cookie('token', token ,{httpOnly:true})
             res.status(201).json(user)
         }
         catch(error){

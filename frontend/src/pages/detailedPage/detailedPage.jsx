@@ -1,23 +1,30 @@
-import { useEffect } from "react"
+import { useEffect} from "react"
 import { useParams } from "react-router-dom"
 import { UseRecipeContext } from "../../hooks/useRecipeHook"
+import LikeRecipe from "../../components/userInteractions/likeRecipe"
+import { useInteractionContext } from "../../hooks/useInteractionHook"
 
 
 const DetailedPage = () => {
     const { recipeId } = useParams()
     const { SingleRecipe, dispatch } = UseRecipeContext()
+    const {dispatch:interactionDispatch} = useInteractionContext()
 
     useEffect(() => {
         const fetchSingleRecipe = async () => {
-            const response = await fetch(`http://localhost:4000/api/recipes/${recipeId}`)
+            const response = await fetch(`http://localhost:4000/api/recipes/${recipeId}`,{
+                credentials:'include'
+            })
             const json = await response.json()
 
             if (response.ok) {
+                interactionDispatch({type:'SET_LIKES', payload:json})
                 dispatch({ type: 'SET_RECIPE', payload: json })
             }
         }
         fetchSingleRecipe()
-    }, [dispatch, recipeId])
+    }, [dispatch, recipeId ,interactionDispatch])
+
 
 
     return (
@@ -28,19 +35,19 @@ const DetailedPage = () => {
                     <div className="mt-5 flex items-center justify-around bg-white shadow rounded-full p-1">
                         <p className="flex items-center"><svg className="mr-3 h-10 w-10 " fill="red" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 222.5 222.5" xmlSpace="preserve" ><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M222.5,179.196v5c0,4.143-3.357,7.5-7.5,7.5H7.5c-4.143,0-7.5-3.357-7.5-7.5v-5c0-4.143,3.357-7.5,7.5-7.5H215 C219.143,171.696,222.5,175.054,222.5,179.196z M215.75,155.354c0,4.143-3.357,7.5-7.5,7.5h-194c-4.143,0-7.5-3.357-7.5-7.5 c0-52.252,38.55-95.669,88.702-103.307C95,50.543,94.75,48.953,94.75,47.304c0-9.098,7.402-16.5,16.5-16.5s16.5,7.402,16.5,16.5 c0,1.649-0.25,3.239-0.702,4.743C177.2,59.684,215.75,103.102,215.75,155.354z M103.566,73.537c-1.01-4.018-5.082-6.449-9.102-5.447 c-1.192,0.3-29.421,7.585-47.612,29.125c-15.424,18.264-17.379,41.078-17.454,42.04c-0.325,4.129,2.759,7.74,6.889,8.064 c0.2,0.016,0.398,0.023,0.596,0.023c3.876,0,7.16-2.982,7.469-6.912c0.015-0.188,1.618-18.922,13.962-33.538 c14.961-17.716,39.416-24.153,39.815-24.257C102.141,81.623,104.574,77.552,103.566,73.537z"></path> </g></svg>{SingleRecipe.servings} Servings</p>
                         <p>{SingleRecipe.calories} Cal</p>
-                        <p>{SingleRecipe.likes.length}</p>
+                        <LikeRecipe></LikeRecipe>
                     </div>
                 </div>
 
             }
-            <div className="bg-red-600 mt-10 md:flex justify-between rounded-lg  ">
+            <div className="bg-white shadow mt-10 md:flex justify-between rounded-lg  ">
                 <div className="w-full overflow-hidden rounded-lg">
                     <img className="w-full object-cover" src='/image.jpeg'></img>
                 </div>
 
-                <div className="p-1 w-full">
+                <div className="p-5 w-full">
                     {SingleRecipe &&
-                        <p className="text-white">{SingleRecipe.description}</p>
+                        <p className="text-red-600 text-2xl font-bold">{SingleRecipe.description}</p>
                     }
 
                 </div>
@@ -58,29 +65,29 @@ const DetailedPage = () => {
             </div>
 
             <div className="flex justify-between gap-3">
-                    {SingleRecipe &&
-                        <div className=" flex flex-col p-5 w-full  justify-around bg-white shadow rounded">
-                            <p className="mb-5 text-red-600 text-2xl font-bold">Ingredients:</p>
-                            {SingleRecipe.ingredients && SingleRecipe.ingredients.map((ingredient) => (
-                                <ol className="list-disc marker:text-red-600 mx-10 text-gray-700" key={ingredient._id}>
-                                    <li >{ingredient.name}</li>
-                                    <p >{ingredient.amount}</p>
-                                </ol>
-                            ))}
-                        </div>
-                    }
+                {SingleRecipe &&
+                    <div className=" flex flex-col p-5 w-full  justify-around bg-white shadow rounded">
+                        <p className="mb-5 text-red-600 text-2xl font-bold">Ingredients:</p>
+                        {SingleRecipe.ingredients && SingleRecipe.ingredients.map((ingredient) => (
+                            <ol className="list-disc marker:text-red-600 mx-10 text-gray-700" key={ingredient._id}>
+                                <li >{ingredient.name}</li>
+                                <p >{ingredient.amount}</p>
+                            </ol>
+                        ))}
+                    </div>
+                }
 
-                    {SingleRecipe &&
-                        <div className=" p-5 w-full flex flex-col justify-around bg-white shadow rounded">
-                            <p className="mb-5 text-red-600 text-2xl font-bold">Instructions:</p>
-                            {SingleRecipe.instructions && SingleRecipe.instructions.map((instruction) => (
-                                <ol  className="list-disc marker:text-red-600  mx-10 text-gray-700" key={instruction._id}>
-                                    <li >{instruction.name}</li>
-                                    <span >{instruction.step}</span>
-                                </ol>
-                            ))}
-                        </div>
-                    }
+                {SingleRecipe &&
+                    <div className=" p-5 w-full flex flex-col justify-around bg-white shadow rounded">
+                        <p className="mb-5 text-red-600 text-2xl font-bold">Instructions:</p>
+                        {SingleRecipe.instructions && SingleRecipe.instructions.map((instruction) => (
+                            <ol className="list-disc marker:text-red-600  mx-10 text-gray-700" key={instruction._id}>
+                                <li >{instruction.name}</li>
+                                <span >{instruction.step}</span>
+                            </ol>
+                        ))}
+                    </div>
+                }
             </div>
 
 

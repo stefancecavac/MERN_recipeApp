@@ -1,7 +1,24 @@
-import { Link } from "react-router-dom"
+import { Link} from "react-router-dom"
+import { UseUserContext } from "../../hooks/useUserHook"
 
 
 const Navbar = () => {
+
+    const {user , dispatch} = UseUserContext()
+
+    const handleLogout = async() => {
+        const response = await fetch(`http://localhost:4000/api/user/logout`,{
+            method:'POST',
+             credentials: 'include'
+        })
+
+        if(response.ok){
+            window.location.reload()
+            localStorage.removeItem('User')
+            dispatch({type: 'LOGOUT'})
+        }
+       
+    }   
 
     return (
         <div className="bg-white  shadow md:left-0 sm:h-screen  md:w-80 sm:sticky sm:top-0 flex flex-col justify-between border-r-4 border-red-600">
@@ -11,7 +28,7 @@ const Navbar = () => {
 
             <div className=" flex  justify-center items-center sm:mb-60">
                 <ul className=" flex sm:flex-col text-red-600 m-2 md:m-5 text-center">
-                    <Link to='/' className="mb-5"> 
+                    <Link to='/' className="mb-5" > 
                     <li className=" flex items-center justify-end   p-2 text-1xl font-bold rounded-lg hover:bg-red-600 hover:text-white transition duration-400 ">
                        <p className="hidden md:flex">Home</p>  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="md:ml-5 w-8 h-8 inline-block">
                             <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -50,7 +67,9 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="mx-5">
-                <Link className="text-white bg-red-600 border-2 flex items-center justify-center   mb-5 p-2 text-1xl font-bold rounded-lg hover:bg-white hover:text-red-600 border-red-600 transition duration-400 ">Login</Link>
+
+               {!user ? (<Link to='/user/login' className="text-white bg-red-600 border-2 flex items-center justify-center   mb-5 p-2 text-1xl font-bold rounded-lg hover:bg-white hover:text-red-600 border-red-600 transition duration-400 ">Login</Link>)
+                : (<button onClick={handleLogout} className=" text-white bg-red-600 border-2 flex items-center justify-center   mb-5 p-2 text-1xl font-bold rounded-lg hover:bg-white hover:text-red-600 border-red-600 transition duration-400 w-full ">Logout</button>) } 
             </div>
         </div>
     )

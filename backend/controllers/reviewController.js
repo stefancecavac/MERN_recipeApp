@@ -33,23 +33,24 @@ const likeRecipe = async (req, res) => {
     const userId = req.user._id;
 
     try {
-        const recipe = await Recipe.findById(id)
+        const recipe = await Recipe.findById(id);
 
         if (!recipe) {
-            return res.json({ error: 'Recipe not found' })
+            return res.json({ error: 'Recipe not found' });
         }
-        const likeExists = recipe.likes.includes(userId)
 
-        if (likeExists) {
-            recipe.likes = recipe.likes.filter(like => like.toString() !== userId.toString())
+        const likeIndex = recipe.likes.indexOf(userId);
+
+        if (likeIndex !== -1) {
+            recipe.likes.splice(likeIndex, 1);
         } else {
-            recipe.likes.push(userId)
+            recipe.likes.push(userId);
         }
 
-        const updatedRecipe = await recipe.save()
-        res.json(updatedRecipe)
+        const updatedRecipe = await recipe.save();
+        res.json(updatedRecipe);
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Internal server error' })
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
 

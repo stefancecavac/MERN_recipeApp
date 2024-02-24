@@ -6,15 +6,14 @@ import authenticate from '../middleware/authentication.js'
 
 const router = express.Router()
 
-//router.use(authenticate)
 router.get('/',getAllRecipes)
 router.get('/:id',getSingleRecipe)
-router.post('/',postRecipe)
-
-router.post('/:id/like',likeRecipe)
-
-router.post('/:id/review',postReview)
 router.get('/:id/review',getAllReviews)
+
+router.use(authenticate)
+router.post('/',postRecipe)
+router.post('/:id/like',likeRecipe)
+router.post('/:id/review',postReview)
 
 
 
