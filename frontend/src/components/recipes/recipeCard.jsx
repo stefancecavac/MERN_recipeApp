@@ -4,19 +4,14 @@ const RecipeCard = ({ recipe }) => {
 
 
     return (
-        <div className="shadow rounded-xl overflow-hidden text-sm relative">
-            <img className="bg-black w-full object-cover h-44 sm:h-60" src="/image.jpeg" alt='recipe'></img>
-            <div className="flex m-2 justify-between">
-                <p className="font-bold text-gray-600">{recipe.title}</p>
-                <p>{recipe.mealType}</p>
+        <div className="shadow-md rounded-xl overflow-hidden text-sm relative">
+            <img className="bg-black w-full object-cover h-44 sm:h-52" src="/image.jpeg" alt='recipe '></img>
+            <div className="bg-red-600 p-1 rounded-xl text-white flex m-2 justify-between absolute bottom-0">
+                <p className=" font-bold text-lg  ">{recipe.title}</p>
             </div>
-            <div className="text-white font-bold bg-red-600 rounded-full p-1 absolute top-0 m-2">{recipe.cookTime} mins
-            </div>
-            <div className="flex justify-around m-2 border-t-2 border-gray-200">
-                <p>{recipe.likes.length}</p>
-                <p>{recipe.reviews.length}</p>
-
-            </div>
+            <small className="text-white  bg-red-600 rounded-full p-1 absolute top-0 m-2">{recipe.cookTime} mins
+            </small>
+           
 
         </div>
     )

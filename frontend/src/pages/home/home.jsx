@@ -1,3 +1,4 @@
+import { Link} from "react-router-dom"
 import FilterCard from "../../components/filters/filterCard"
 import RecipeCard from "../../components/recipes/recipeCard"
 import { UseRecipeContext } from "../../hooks/useRecipeHook"
@@ -29,11 +30,15 @@ const Home = () => {
 
 
     return (
-        <div className="flex flex-col sm:w-full m-5 ">
+        <div className="flex flex-col sm:w-full sm:m-10 sm:mt-4 ">
             <FilterCard></FilterCard>
-            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-5 mt-5">
+            <p className="text-7xl font-bold text-gray-800 mb-10 ">Most delicious <br></br><span className="text-red-600">Cook me</span> recepies</p>
+            <p className="font-bold text-gray-700 mb-10">There are   <span className="text-red-600">{recipes.length}</span> recipes to cook!</p>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 ">
                 {recipes && recipes.map((recipe) => (
-                    <RecipeCard key={recipe._id} recipe={recipe} ></RecipeCard>
+                   <Link to={`/${recipe._id}`} className='transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105  duration-100' key={recipe._id}>
+                    <RecipeCard  recipe={recipe} ></RecipeCard></Link> 
 
                 ))}
             </div>

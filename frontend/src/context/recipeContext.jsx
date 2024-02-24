@@ -12,11 +12,13 @@ export const RecipeReducer = (state, action) => {
             }
         case 'SET_RECIPE':
             return {
-                Singlerecipe: action.payload
+                SingleRecipe: action.payload,
+                recipes:state.recipes
             }
         case 'POST_RECIPE':
             return {
                 recipes: [action.payload, ...state.recipes]
+                
             }
         case 'DELETE_RECIPE':
             return {
