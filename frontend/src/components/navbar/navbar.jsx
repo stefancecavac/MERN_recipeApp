@@ -21,7 +21,7 @@ const Navbar = () => {
     }   
 
     return (
-        <div className="bg-white  shadow md:left-0 sm:h-screen  md:w-80 sticky sm:top-0 flex flex-col justify-between sm:border-r-4 border-red-600">
+        <div className="bg-white  z-40 shadow md:left-0 sm:h-screen  md:w-80 sticky top-0 flex flex-col justify-between sm:border-r-4 border-red-600">
             <div className="p-5 hidden md:flex sm:justify-center ">
                 <h1 className=" text-red-600 text-4xl font-bold ">Cook Me</h1>
             </div>

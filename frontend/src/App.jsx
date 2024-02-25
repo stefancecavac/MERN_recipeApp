@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route ,Navigate} from 'react-router-dom'
 
 import Home from './pages/home/home'
 import Navbar from './components/navbar/navbar'
@@ -7,8 +7,11 @@ import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import LikedRecipes from './pages/likedRecipes/likedRecipes'
 import AddRecipe from './pages/addRecipe/addRecipe'
+import { UseUserContext } from './hooks/useUserHook'
 
 function App() {
+
+  const { user } = UseUserContext()
 
   return (
     <div className='grid sm:flex bg-white bg-repeat  ' style={{ backgroundImage: 'url("/bg.jpeg")' }}>
@@ -19,9 +22,9 @@ function App() {
           <Route index element={<Home></Home>}></Route>
 
           <Route path='/:recipeId' element={<DetailedPage></DetailedPage>}></Route>
-          <Route path='/add-recipe' element={<AddRecipe></AddRecipe>}></Route>
+          <Route path='/add-recipe' element={user ? (<AddRecipe></AddRecipe>) : (<Navigate to='/user/login'></Navigate>)}></Route>
 
-          <Route path='/liked-recipes' element={<LikedRecipes></LikedRecipes>}></Route>
+          <Route path='/liked-recipes' element={user ? (<LikedRecipes></LikedRecipes>) : (<Navigate to='/user/login'></Navigate>)}></Route>
 
 
           <Route path='/user/login' element={<Login></Login>}></Route>
