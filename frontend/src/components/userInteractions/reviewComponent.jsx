@@ -9,10 +9,10 @@ const ReviewComponent = () => {
     const [rating, setRating] = useState()
     const [comment, setComment] = useState()
 
-
     const { dispatch } = useInteractionContext()
     const { SingleRecipe } = UseRecipeContext()
     const { recipeId } = useParams()
+    const [wrongInput, setWrongInput] = useState([])
 
     
 
@@ -28,9 +28,12 @@ const ReviewComponent = () => {
         const json = await response.json()
 
         if(!response.ok){
-            window.location.href = 'http://localhost:5173/user/login';
+            setWrongInput(json.wrongInput)
+
         }
         if (response.ok) {
+            setWrongInput([])
+
             dispatch({ type: 'SET_REVIEWS', payload: json })
 
         }
@@ -69,7 +72,7 @@ const ReviewComponent = () => {
 
             <div className="flex flex-col">
                 <div className="flex items-center">
-                    <span>Select Rating: </span>
+                    <span className={`${wrongInput.includes('comment')? 'text-red-600' : ''}`}>Select Rating: </span>
                     {[1, 2, 3, 4, 5].map((index) => (
                         <label key={index} className="ml-2">
                             <input
@@ -94,7 +97,7 @@ const ReviewComponent = () => {
                     ))}
                 </div>
 
-                <textarea className=" bg-white rounded-mg shadow-md p-2 mb-5" placeholder="Leave a comment"
+                <textarea className={` bg-white rounded-mg  border-2 shadow-md p-2 mb-5 ${wrongInput.includes('comment')? 'border-red-600 placeholder:text-red-600' : ''}`} placeholder={`${wrongInput.includes('comment')? 'fill out this field' : 'type a comment'}`}
                     onChange={(e) => setComment(e.target.value)}
                     value={comment}></textarea>
                 <button  className="flex  text-white bg-red-600 border-2  items-center justify-center mx-auto  mb-5 p-2 text-1xl font-bold rounded-lg hover:bg-white hover:text-red-600 border-red-600 transition duration-400 " type='submit' onClick={handleReview}>Post Review</button>

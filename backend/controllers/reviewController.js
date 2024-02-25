@@ -19,6 +19,19 @@ const postReview = async (req, res) => {
     const { rating, comment } = req.body
 
     try {
+
+
+        const wrongInput = []
+        if (!rating) {
+            wrongInput.push('rating')
+        }
+        if (!comment) {
+            wrongInput.push('comment')
+        }
+
+        if (wrongInput.length > 0) {
+            return res.status(400).json({ error: 'please fill out all fields', wrongInput })
+        }
         
         const review = await Review.create({ rating, comment, userId: userId })
         const populatedReview = await Review.findById(review._id).populate('userId');
