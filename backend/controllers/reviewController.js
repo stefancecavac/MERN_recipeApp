@@ -1,6 +1,6 @@
 import Review from '../models/reviewModel.js'
 import Recipe from '../models/recipeModel.js'
-
+import User from '../models/userModel.js'
 
 
 const getAllReviews = async (req, res) => {
@@ -16,11 +16,13 @@ const getAllReviews = async (req, res) => {
 const postReview = async (req, res) => {
     const { id } = req.params;
     const userId = req.user._id
-    const rating = req.body
+    const { rating, comment } = req.body
 
     try {
-        const review = await Review.create({ ...rating, userId: userId })
-        const recipe = await Recipe.findByIdAndUpdate({ _id: id }, { $push: { reviews: review._id } }, { new: true }).populate('reviews')
+        
+        const review = await Review.create({ rating, comment, userId: userId })
+        const populatedReview = await Review.findById(review._id).populate('userId');
+        const recipe = await Recipe.findByIdAndUpdate({ _id: id }, { $push: { reviews: populatedReview._id } }, { new: true }).populate('reviews')
         res.status(201).json(recipe)
     }
     catch (error) {
@@ -55,4 +57,4 @@ const likeRecipe = async (req, res) => {
 };
 
 
-export { postReview, getAllReviews,likeRecipe }
+export { postReview, getAllReviews, likeRecipe }

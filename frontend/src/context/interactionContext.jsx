@@ -14,6 +14,17 @@ export const InteractionReducer = (state, action) => {
             case 'SET_LIKES':
             return {
                 likes: action.payload,
+
+            }
+            case 'POST_REVIEW':
+            return {
+                reviews: action.payload,
+
+            }
+            case 'SET_REVIEWS':
+            return {
+                reviews: action.payload,
+
             }
    
             default:
@@ -23,7 +34,8 @@ export const InteractionReducer = (state, action) => {
 
 export const InteractionContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(InteractionReducer, {
-        likes: []
+        likes: [],
+        reviews:[]
     })
     console.log(state)
 

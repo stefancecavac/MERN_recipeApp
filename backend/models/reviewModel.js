@@ -7,6 +7,10 @@ const reviewModel = new Schema({
         min:1,
         max:5,
    },
+   comment:{
+     type:String,
+     required:true
+   },
    userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref: "User"

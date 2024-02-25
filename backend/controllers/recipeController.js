@@ -18,8 +18,13 @@ const getSingleRecipe = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({ error: 'not a valid Id' })
         }
-        const recipe = await Recipe.findOne({ _id: id })
-
+        const recipe = await Recipe.findOne({ _id: id }).populate('reviews').populate({
+            path: 'reviews',
+            populate: {
+                path: 'userId',
+                model: 'User',
+            },
+        }).exec();
         if (!recipe) {
             return res.status(404).json({ error: 'no recipe with that Id' })
         }

@@ -27,8 +27,8 @@ function App() {
           <Route path='/liked-recipes' element={user ? (<LikedRecipes></LikedRecipes>) : (<Navigate to='/user/login'></Navigate>)}></Route>
 
 
-          <Route path='/user/login' element={<Login></Login>}></Route>
-          <Route path='/user/register' element={<Register></Register>}></Route>
+          <Route path='/user/login' element={user ? (<Navigate to='/'></Navigate>) :(<Login></Login>)}></Route>
+          <Route path='/user/register' element={user ? (<Navigate to='/'></Navigate>) :(<Register></Register>)}></Route>
 
 
         </Routes>

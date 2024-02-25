@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom"
 import { UseRecipeContext } from "../../hooks/useRecipeHook"
 import LikeRecipe from "../../components/userInteractions/likeRecipe"
 import { useInteractionContext } from "../../hooks/useInteractionHook"
+import ReviewComponent from "../../components/userInteractions/reviewComponent"
 
 
 const DetailedPage = () => {
     const { recipeId } = useParams()
     const { SingleRecipe, dispatch } = UseRecipeContext()
-    const {dispatch:interactionDispatch} = useInteractionContext()
+    const {dispatch:interactionDispatch,reviews} = useInteractionContext()
 
     useEffect(() => {
         const fetchSingleRecipe = async () => {
@@ -23,7 +24,7 @@ const DetailedPage = () => {
             }
         }
         fetchSingleRecipe()
-    }, [dispatch, recipeId ,interactionDispatch])
+    }, [dispatch, recipeId ,interactionDispatch ,reviews])
 
 
 
@@ -92,7 +93,7 @@ const DetailedPage = () => {
 
 
 
-
+                <ReviewComponent></ReviewComponent>
         </div>
     )
 }
