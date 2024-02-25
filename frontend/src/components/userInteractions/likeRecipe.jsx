@@ -1,5 +1,5 @@
 import { useInteractionContext } from "../../hooks/useInteractionHook";
-import { useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { UseUserContext } from "../../hooks/useUserHook";
 
 
@@ -8,7 +8,7 @@ const LikeRecipe = () => {
 
     const {likes, dispatch } = useInteractionContext()
     const { user } = UseUserContext()
-
+ 
   
     const handleLike = async () => {
         const response = await fetch(`http://localhost:4000/api/recipes/${recipeId}/like`, {
@@ -16,6 +16,10 @@ const LikeRecipe = () => {
             credentials: 'include',
         })
         const json = await response.json()
+
+        if(!response.ok){
+            window.location.href = 'http://localhost:5173/user/login';
+           }
 
         if (response.ok) {
             dispatch({ type: 'POST_LIKE', payload: json })

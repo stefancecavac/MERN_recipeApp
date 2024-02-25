@@ -8,12 +8,11 @@ export const RecipeReducer = (state, action) => {
     switch (action.type) {
         case 'SET_RECIPES':
             return {
-                recipes: action.payload
+                recipes: action.payload,
             }
         case 'SET_RECIPE':
             return {
                 SingleRecipe: action.payload,
-                recipes:state.recipes
             }
         case 'POST_RECIPE':
             return {

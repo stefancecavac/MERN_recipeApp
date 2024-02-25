@@ -6,6 +6,7 @@ import DetailedPage from './pages/detailedPage/detailedPage'
 import Login from './pages/auth/login'
 import Register from './pages/auth/register'
 import LikedRecipes from './pages/likedRecipes/likedRecipes'
+import AddRecipe from './pages/addRecipe/addRecipe'
 
 function App() {
 
@@ -18,6 +19,8 @@ function App() {
           <Route index element={<Home></Home>}></Route>
 
           <Route path='/:recipeId' element={<DetailedPage></DetailedPage>}></Route>
+          <Route path='/add-recipe' element={<AddRecipe></AddRecipe>}></Route>
+
           <Route path='/liked-recipes' element={<LikedRecipes></LikedRecipes>}></Route>
 
 

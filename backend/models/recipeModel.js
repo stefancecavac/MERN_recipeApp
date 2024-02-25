@@ -18,7 +18,7 @@ const recipeSchema = new Schema({
         amount:{
             type:Number,
             required:true
-        }
+        },
     }],
     instructions:[{
         name:{
@@ -28,7 +28,7 @@ const recipeSchema = new Schema({
         step:{
             type:Number,
             required:true
-        }
+        },
     }],
     difficulty: {
         type: String,
