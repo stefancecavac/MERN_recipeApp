@@ -4,6 +4,7 @@ import { UseRecipeContext } from "../../hooks/useRecipeHook"
 import LikeRecipe from "../../components/userInteractions/likeRecipe"
 import { useInteractionContext } from "../../hooks/useInteractionHook"
 import ReviewComponent from "../../components/userInteractions/reviewComponent"
+import NotFound from "../404/notFound"
 
 
 const DetailedPage = () => {
@@ -17,7 +18,7 @@ const DetailedPage = () => {
                 credentials:'include'
             })
             const json = await response.json()
-
+         
             if (response.ok) {
                 interactionDispatch({type:'SET_LIKES', payload:json})
                 dispatch({ type: 'SET_RECIPE', payload: json })
@@ -26,7 +27,9 @@ const DetailedPage = () => {
         fetchSingleRecipe()
     }, [dispatch, recipeId ,interactionDispatch ,reviews])
 
-
+    if(!SingleRecipe){
+        return <NotFound></NotFound>
+    }
 
     return (
         <div className="m-10 sm:w-full">

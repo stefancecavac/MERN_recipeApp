@@ -47,7 +47,7 @@ const LikedRecipes = () => {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10  ">
                         {recipes && recipes.map((recipe) => (
-                            <Link to={`/${recipe._id}`} className='transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105  duration-100' key={recipe._id}>
+                            <Link to={`/recipes/${recipe._id}`} className='transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105  duration-100' key={recipe._id}>
                                 <RecipeCard recipe={recipe} ></RecipeCard></Link>
 
                         ))}
