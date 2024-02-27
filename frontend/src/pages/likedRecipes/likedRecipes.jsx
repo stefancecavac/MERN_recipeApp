@@ -39,7 +39,7 @@ const LikedRecipes = () => {
         return <p >loading ...</p>
     }
     return (
-        <div className="flex flex-col sm:w-full sm:m-10 sm:mt-4 ">
+        <div className="flex flex-col sm:w-full m-5 sm:m-10 sm:mt-4 ">
         
             {!user ? (<p className="flex   m-auto w-full text-6xl">Login in to see liked recipies</p>) : (
                 <>

@@ -2,8 +2,10 @@ import Recipe from '../models/recipeModel.js'
 import mongoose from 'mongoose'
 
 const getAllRecipes = async (req, res) => {
+    const { title } = req.query;
+    const filter = title ? { title: { $regex: new RegExp(title, 'i') } } : {};
     try {
-        const recipe = await Recipe.find(req.query).sort({ createdAt: -1 }).populate('reviews')
+        const recipe = await Recipe.find(filter).sort({ createdAt: -1 }).populate('reviews')
         res.status(200).json(recipe)
     }
     catch (error) {
@@ -62,10 +64,10 @@ const postRecipe = async (req, res) => {
         }
         if (instructions.some(instruction => !instruction.name || !instruction.step)) {
             wrongInput.push('instructions')
-        } 
+        }
         if (!prepTime) {
             wrongInput.push('prepTime')
-        } 
+        }
         if (!cookTime) {
             wrongInput.push('cookTime')
         }
@@ -73,7 +75,7 @@ const postRecipe = async (req, res) => {
         if (!servings) {
             wrongInput.push('servings')
         }
-         if (!difficulty) {
+        if (!difficulty) {
             wrongInput.push('difficulty')
         }
         if (!calories) {
@@ -82,7 +84,7 @@ const postRecipe = async (req, res) => {
         if (!mealType) {
             wrongInput.push('mealType')
         }
-        
+
         if (wrongInput.length > 0) {
             return res.status(400).json({ error: 'please fill out all fields', wrongInput })
 

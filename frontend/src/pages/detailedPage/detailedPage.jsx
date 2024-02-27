@@ -1,16 +1,17 @@
-import { useEffect} from "react"
+import { useEffect, useState} from "react"
 import { useParams } from "react-router-dom"
 import { UseRecipeContext } from "../../hooks/useRecipeHook"
 import LikeRecipe from "../../components/userInteractions/likeRecipe"
 import { useInteractionContext } from "../../hooks/useInteractionHook"
 import ReviewComponent from "../../components/userInteractions/reviewComponent"
-import NotFound from "../404/notFound"
 
 
 const DetailedPage = () => {
     const { recipeId } = useParams()
     const { SingleRecipe, dispatch } = UseRecipeContext()
     const {dispatch:interactionDispatch,reviews} = useInteractionContext()
+
+    const [loading ,setLoading] = useState(true)
 
     useEffect(() => {
         const fetchSingleRecipe = async () => {
@@ -20,6 +21,7 @@ const DetailedPage = () => {
             const json = await response.json()
          
             if (response.ok) {
+                setLoading(false)
                 interactionDispatch({type:'SET_LIKES', payload:json})
                 dispatch({ type: 'SET_RECIPE', payload: json })
             }
@@ -27,11 +29,12 @@ const DetailedPage = () => {
         fetchSingleRecipe()
     }, [dispatch, recipeId ,interactionDispatch ,reviews])
 
-    if(!SingleRecipe){
-        return <NotFound></NotFound>
-    }
+ 
 
     return (
+        loading ? (
+            <p>loading,,</p>
+        ) : (
         <div className="m-10 sm:w-full">
             {SingleRecipe &&
                 <div>
@@ -98,6 +101,7 @@ const DetailedPage = () => {
 
                 <ReviewComponent></ReviewComponent>
         </div>
+        )
     )
 }
 
