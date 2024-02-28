@@ -33,7 +33,7 @@ const DetailedPage = () => {
 
     return (
         loading ? (
-            <p>loading,,</p>
+            <p className="m-10 sm:w-full">loading,,</p>
         ) : (
         <div className="m-10 sm:w-full">
             {SingleRecipe &&

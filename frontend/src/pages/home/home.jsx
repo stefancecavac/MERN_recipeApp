@@ -45,7 +45,7 @@ const Home = () => {
 
     return (
 
-        <div className="flex flex-col sm:w-fullv m-3 sm:m-10 sm:mt-4">
+        <div className="flex flex-col sm:w-full m-3 sm:m-10 sm:mt-4">
         <FilterCard search={search} onSearchChange={setSearch}></FilterCard>
         <p className="text-2xl mx-auto sm:text-7xl font-bold text-gray-800 mb-10">Most delicious <br></br><span className="text-red-600">Cook me</span> recipes</p>
         <p className="font-bold  text-gray-700 mb-10">There are <span className="text-red-600">{recipes && recipes.length}</span> recipes to cook!</p>

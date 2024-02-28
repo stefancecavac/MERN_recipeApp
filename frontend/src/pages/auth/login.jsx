@@ -40,7 +40,7 @@ const Login = () => {
 
 
     return (
-        <div className="flex justify-center items-center w-screen h-screen ">
+        <div className="flex justify-center items-center w-full h-full sm:m-10 ">
         <form className=" p-5 flex flex-col border-2 border-red-600 rounded-lg" onSubmit={handleLogin}>
             <h1 className="text-red-600 font-bold text-6xl mb-20">Login</h1>
 
@@ -57,7 +57,7 @@ const Login = () => {
 
             {error && <div>{error}</div>}
 
-            <p>Dont have a account?<Link to='/user/register' className="text-red-600">Login</Link> here</p>
+            <p>Dont have a account?<Link to='/user/register' className="text-red-600">Register</Link> here</p>
         </form>
     </div>
     )

@@ -77,7 +77,7 @@ const AddRecipe = () => {
 
 
     return (
-        <div className="sm:p-5 sm:m-5 flex flex-col sm:w-full ">
+        <div className=" sm:m-10 flex flex-col sm:w-full ">
             <form className="m-5" onSubmit={handleSubmit}>
                 <h1 className=" flex justify-center text-4xl sm:text-7xl text-gray-800 font-bold my-5 sm:mb-20">Add <span className="text-red-600">Recipe:</span></h1>
                 <div className="gap-5  md:flex ">

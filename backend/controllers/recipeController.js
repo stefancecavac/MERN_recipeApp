@@ -3,7 +3,11 @@ import mongoose from 'mongoose'
 
 const getAllRecipes = async (req, res) => {
     const { title } = req.query;
-    const filter = title ? { title: { $regex: new RegExp(title, 'i') } } : {};
+    const filter = {}
+
+    if(title) {
+       filter.title = { $regex: new RegExp(title, 'i') } 
+    }
     try {
         const recipe = await Recipe.find(filter).sort({ createdAt: -1 }).populate('reviews')
         res.status(200).json(recipe)

@@ -36,7 +36,7 @@ const LikedRecipes = () => {
     }, [dispatch])
 
     if (loading) {
-        return <p >loading ...</p>
+        return <p className="flex flex-col sm:w-full m-5 sm:m-10 sm:mt-4 " >loading ...</p>
     }
     return (
         <div className="flex flex-col sm:w-full m-5 sm:m-10 sm:mt-4 ">

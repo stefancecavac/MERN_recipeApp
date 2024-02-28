@@ -13,6 +13,8 @@ const RecipeCard = ({ recipe }) => {
         return average;
     };
     const avgRating = averageRating();
+
+    
     return (
         <div className="shadow-md rounded-xl overflow-hidden text-sm relative">
             <img className="bg-black w-full object-cover h-44 sm:h-52" src="/image.jpeg" alt='recipe '></img>
